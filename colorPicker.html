@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>colorPicker</title>
+    <style>
+      :root {
+        --main-bgColor: plum;
+        --main-txtColor: white;
+      }
+      body {
+        background-color: var(--main-bgColor);
+      }
+      .blind {
+        position: absolute; /* position: absolute/fixed 에서만 clip 속성 작동 */
+        margin: -1px; /* 부트스트랩에선 안씀 */
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        border: 0;
+        white-space: nowrap;
+        overflow: hidden; /* overflow: visible 이면 clip 속성 작동 안됨 */
+        clip: rect(0, 0, 0, 0);
+        clip-path: inset(50%); /* H5BP에선 안씀 */
+      }
+      .wrapper {
+        height: 10em;
+        margin: 0 auto;
+        text-align: center;
+        background-color: palegoldenrod;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .picker + .picker {
+        margin-left: 30px;
+      }
+      .picker {
+        background-color: plum;
+        padding: 1em;
+      }
+      label {
+        font-size: 2em;
+        color: white;
+        font-weight: bold;
+      }
+      main {
+        color: var(--main-txtColor);
+        text-align: center;
+        margin: 0 auto;
+        width: 60em;
+      }
+      h2 {
+        font-size: 8em;
+      }
+      p {
+        font-size: 2em;
+      }
+      .share {
+        text-align: center;
+        margin: 100px auto;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="wrapper">
+      <h1 class="blind">color Picker</h1>
+      <article class="picker">
+        <label
+          >background-color :
+          <input id="inp-bg" type="color" data-color="bgColor" />
+        </label>
+      </article>
+      <article class="picker">
+        <label
+          >text-color :
+          <input id="inp-tc" type="color" data-color="txtColor" />
+        </label>
+      </article>
+    </section>
+    <main>
+      <h2 id="title">Color picker!!</h2>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium
+        aperiam incidunt ea doloribus. Reiciendis sunt tempora fugit sit
+        excepturi neque in mollitia ab minus illo, nostrum deleniti ducimus quis
+        vel!
+      </p>
+
+      <!-- Go to www.addthis.com/dashboard to customize your tools -->
+      <div class="addthis_inline_share_toolbox share"></div>
+    </main>
+    <script>
+      //inp-bg의 값을 --main-bgColor에 저장하여 배경스타일 속성을 바꾼다.
+      const bg = document.getElementById("inp-bg");
+      //body의 배경색을 바꿔준다.
+      const body = document.querySelector("body");
+      const root = document.querySelector(":root");
+      //input이벤트 발생
+      //질문 bg와 event의 차이??
+      bg.addEventListener("input", () => {
+        const name = `--main-${event.target.dataset.color}`;
+        console.log(name);
+        //root안의 프로퍼티의 값을 바꾼다.
+
+        //선택한 값이 출력된다.
+        //const bgColor = bg.value;
+        const bgColor = event.target.value;
+        root.style.setProperty(name, bgColor);
+      });
+      const txt = document.getElementById("inp-tc");
+      txt.addEventListener("input", () => {
+        const name = `--main-${txt.dataset.color}`;
+        console.log(txt.dataset.color);
+        const txtcolor = event.target.value;
+        root.style.setProperty(name, txtcolor);
+      });
+    </script>
+    <!-- Go to www.addthis.com/dashboard to customize your tools -->
+    <script
+      type="text/javascript"
+      src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-635098ae907f06cc"
+    ></script>
+  </body>
+</html>
